@@ -3,17 +3,17 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Posts</title>
+  <title>ads</title>
   <th:block th:include="partials/styles.html  :: styles"></th:block>
 
 </head>
 <body>
 <th:block th:include="partials/navbar.html :: navbar"></th:block>
 <!--Top-->
-<ul th:each="post : ${postsList}">
+<ul th:each="ad : ${ads}">
   <li>
 <!--    Hi-->
-<a th:href="@{|posts/${post.getId()}|}"><span th:text="${post.getTitle()}"></span></a>
+<a th:href="@{|ads/${ad.getId()}|}"><span th:text="${ad.getTitle()}"></span></a>
   </li>
 </ul>
 

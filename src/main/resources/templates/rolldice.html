@@ -3,27 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <title>Roll Dice Dude</title>
+  <th:block th:include="partials/styles.html  :: styles"></th:block>
+
 </head>
 <body>
-<div  th:if="${roll}"></div>
-<h2>The dice rolled: <span th:text="${roll}">Dice roll here</span></h2>
-<h2>Your guess was: <span th:text="${guess}">Guess goes here</span></h2>
-<h3  th:if="${roll} == ${guess}">You guessed correctly!</h3>
-<h3  th:if="${roll} != ${guess}">You guessed the wrong number...!</h3>
+<th:block th:include="partials/navbar.html :: navbar"></th:block>
+<!--Top-->
+<!--I'm not using a boolean because if the value is null or 0 it goes false...-->
+<div th:if="${roll}">
+  <h2>The 1st dice rolled: <span th:text="${roll}">Dice roll here</span></h2>
+  <h2>The 2nd dice rolled: <span th:text="${rollTwo}">Dice roll here</span></h2>
+  <h2>The 3rd dice rolled: <span th:text="${rollThree}">Dice roll here</span></h2>
 
-<h4>Play Again?</h4>
-<div>
-  <a href="/roll-dice/1">Guess 1?</a>
-  <br>
-  <a href="/roll-dice/2">Guess 2?</a>
-  <br>
-  <a href="/roll-dice/3">Guess 3?</a>
-  <br>
-  <a href="/roll-dice/4">Guess 4?</a>
-  <br>
-  <a href="/roll-dice/5">Guess 5?</a>
-  <br>
-  <a href="/roll-dice/6">Guess 6?</a>
+  <h2>Your guess was: <span th:text="${guess}">Guess goes here</span></h2>
+  <h3 th:if="${rollsCorrect}"><span th:text="${rollsCorrect}"></span> dice rolled <span th:text="${guess}"></span>.</h3>
+
+  <h3 th:if="${rollsCorrect}"> You guessed correctly!</h3>
+  <h3 th:if="!${rollsCorrect}">You guessed incorrectly...</h3>
+  <h4>Play Again?</h4>
 </div>
+
+<div class="container">
+  <a class="btn btn-dark m-3" href="/roll-dice/1">Guess 1?</a>
+  <br>
+  <a class="btn btn-secondary m-3" href="/roll-dice/2">Guess 2?</a>
+  <br>
+  <a class="btn btn-success m-3" href="/roll-dice/3">Guess 3?</a>
+  <br>
+  <a class="btn btn-danger m-3" href="/roll-dice/4">Guess 4?</a>
+  <br>
+  <a class="btn btn-warning m-3" href="/roll-dice/5">Guess 5?</a>
+  <br>
+  <a class="btn btn-info m-3" href="/roll-dice/6">Guess 6?</a>
+</div>
+<!--Bottom-->
+<th:block th:include="partials/scripts.html  :: bootstrap"></th:block>
 </body>
 </html>

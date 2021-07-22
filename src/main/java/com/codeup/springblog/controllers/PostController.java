@@ -14,7 +14,7 @@ public class PostController {
   public List<Post> postsList = new ArrayList<Post>(){{
     add( new Post(1,"Title 1", "Stuff for body 1"));
     add(new Post(2,"2nd title", "Stuff for 2nd body."));
-  } };
+  }};
 
 
   @GetMapping("/posts")

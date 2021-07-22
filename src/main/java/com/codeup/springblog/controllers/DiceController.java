@@ -22,8 +22,28 @@ public class DiceController {
   public String rolledDice(@PathVariable String guess, Model model){
     model.addAttribute("guess",guess);
     int roll = random.nextInt(6) + 1;
+    int rollTwo = random.nextInt(6) + 1;
+    int rollThree = random.nextInt(6) + 1;
+    int rollsCorrect = 0;
+//
+    if(roll == Integer.parseInt(guess)){
+      rollsCorrect = rollsCorrect + 1;
+    }
+    if(rollTwo == Integer.parseInt(guess)){
+      rollsCorrect = rollsCorrect + 1;
+
+    }
+    if(rollThree == Integer.parseInt(guess)){
+      rollsCorrect = rollsCorrect + 1;
+    }
+
+
     model.addAttribute("roll",roll);
-      return "rolldice";
+    model.addAttribute("rollTwo",rollTwo);
+    model.addAttribute("rollThree",rollThree);
+    model.addAttribute("rollsCorrect",rollsCorrect);
+
+    return "rolldice";
   }
 
 }
