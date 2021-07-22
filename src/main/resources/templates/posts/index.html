@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Posts</title>
+  <th:block th:include="partials/styles.html  :: styles"></th:block>
+
+</head>
+<body>
+<th:block th:include="partials/navbar.html :: navbar"></th:block>
+<!--Top-->
+<ul th:each="post : ${postsList}">
+  <li>
+    Hi
+<a th:href="@{|posts/${post.getId()}|}"><span th:text="${post.getTitle()}"></span></a>
+  </li>
+</ul>
+
+<!--Bottom-->
+<!--<th:block th:include="partials/scripts.html  :: bootstrap"></th:block>-->
+</body>
+</html>

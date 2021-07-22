@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Parks?</title>
+</head>
+<body>
+<!--Works like c:foreach-->
+<ul th:each="park : ${parks}">
+  <!-- below will work as long as the value put in is...
+   boolean true,
+   a number that's NOT ZERO,
+     a character that is not zero,
+     a string that is not false, off or no,
+     if the value is not a boolean, a number, or a character or a string
+     It's more of a not null?
+     if it's null it will evaulate false.-->
+  <th:block th:if="${parks.isEmpty()}">
+    <!--  unless works the opposite way? Unless parks is NOT EMPTY then do this?-->
+    <th:block th:unless="${parks.isEmpty()}">
+
+      <li th:text="${park.name}"></li>
+    </th:block>
+  </th:block>
+  <!--  For our list of park objects-->
+</ul>
+</body>
+</html>

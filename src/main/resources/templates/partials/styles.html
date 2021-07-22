@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:fragament="head">
+  <meta charset="UTF-8">
+  <title>Styles title instead c:</title>
+<!-- This is the fragment we are pulling out for style -->
+<!--   <th:block th:include="partials/styles.html" :: styles></th:block>
+  Above goes on the page we want to include the line on.-->
+  <th:block th:fragment="styles">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/main.css">
+  </th:block>
+</head>
+<body>
+
+</body>
+</html>

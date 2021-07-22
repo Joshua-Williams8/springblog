@@ -1,6 +1,7 @@
 package com.codeup.springblog.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 //@Controller tells spring that is going to be SIMLIAR to a SERVLET, like in adlister...
@@ -16,11 +17,26 @@ public class HelloContoller {
   }
 //  We can see the message above by visiting http://localhost:8080/hello
 //  variable name needs to match the (thing) so name and name need to be the same!
-  @GetMapping("hello/{name}")
-  @ResponseBody
-  public String sayHello(@PathVariable String name) {
-    return "Hello " + name + "!";
-  }
+@GetMapping("/hello/{name}")
+public String sayHello(@PathVariable String name, Model model) {
+  model.addAttribute("name", name);
+  return "hello";
+}
+//Below we are pointing to our html doc to just pull it up
+@GetMapping("/join")
+public String getJoinForm(){
+    return "join";
+}
+//Below we are accepting the post from the form...
+@PostMapping("/join")
+//Similar to request.getparameter from jsps.
+public  String joinCohort(@RequestParam(name = "cohort") String cohort, Model model){
+    model.addAttribute("cohort", "Welcome to " + cohort);
+    return "join";
+}
+
+//We can use other kinds of tags for our html like the c:when otherwise etc...
+
 
   @GetMapping("/number/{num}")
   @ResponseBody

@@ -1,24 +1,34 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.models.Post;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostController {
 
-  @RequestMapping(path ="/posts", method = RequestMethod.GET)
-  @ResponseBody
-  public String posts(){
-    return "POST INDEX PAGE (Would have post here)";
+  public List<Post> postsList = new ArrayList<Post>(){{
+    add( new Post(1,"Title 1", "Stuff for body 1"));
+    add(new Post(2,"2nd title", "Stuff for 2nd body."));
+  } };
+
+
+  @GetMapping("/posts")
+  public String posts(Model model){
+    model.addAttribute("postsList", postsList);
+    return "posts/index";
   }
 
-  @RequestMapping(path ="/posts/{id}", method = RequestMethod.GET)
-  @ResponseBody
-  public String postByID(@PathVariable long id){
-    return "This page is for post ID: "+id;
+  @GetMapping("/posts/{id}")
+  public String postByID(@PathVariable long id, Model model){
+    int minusOne = (int) id - 1;
+    Post post = postsList.get(minusOne);
+    model.addAttribute("post", post);
+    return "posts/show";
   }
 
   @RequestMapping(path ="/posts/create", method = RequestMethod.GET)

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!--Below is if you want to replace parts, with other sources...-->
+<!--<head th:replace="partials/styles.html :: head">-->
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome!</title>
+<!-- below is for testing pulling the bootstrap styles, and it works. -->
+  <th:block th:include="partials/styles.html  :: styles"></th:block>
+</head>
+<body>
+<th:block th:include="partials/navbar.html :: navbar"></th:block>
+<h1>This is the landing page, dude.</h1>
+<th:block th:include="partials/scripts.html  :: bootstrap"></th:block>
+</body>
+</html>
