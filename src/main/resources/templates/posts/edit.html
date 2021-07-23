@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Post</title>
+  <th:block th:include="partials/styles.html  :: styles"></th:block>
+
+</head>
+<body>
+<th:block th:include="partials/navbar.html :: navbar"></th:block>
+<!--Top-->
+<div th:if="${postEdit}">
+  <form method="post" action="/posts/edit/submit">
+    <h2 th:text="${postEdit.title}">title</h2>
+    <p th:text="${postEdit.body}">body</p>
+    <br>
+
+    <label for="newTitle">Edit Title</label>
+    <textarea name="newTitle" id="newTitle" rows="5" cols="40" th:text="${postEdit.title}"></textarea>
+    <label for="newBody">Edit Body</label>
+    <textarea name="newBody" id="newBody" rows="7" cols="40" th:text="${postEdit.body}"></textarea>
+    <input hidden th:value="${postEdit.id}" name="postId">
+    <button type="submit">Submit changes.</button>
+  </form>
+
+  <br>
+  <!--th:action="@{/posts/delete/{id}(id = ${post.id})}" method="post"-->
+  <form method="post" action="/posts/delete">
+    <input hidden name="postId" th:value="${postEdit.id}" id="postId">
+    <button type="submit">Delete Post?</button>
+  </form>
+</div>
+
+<!--Bottom-->
+<th:block th:include="partials/scripts.html  :: bootstrap"></th:block>
+</body>
+</html>
+
