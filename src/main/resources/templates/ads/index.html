@@ -14,6 +14,7 @@
   <li>
 <!--    Hi-->
 <a th:href="@{|ads/${ad.getId()}|}"><span th:text="${ad.getTitle()}"></span></a>
+    <p th:text="${ad.user.username}"></p>
   </li>
 </ul>
 

@@ -12,18 +12,12 @@ public class AdImage {
   @Column(nullable = false)
   private String path;
 
-  //  Below sets 1 adImage to 1 ad?
-  @OneToOne
-  private Ad ad;
+  //  Below sets  adImage to 1 ad?
+
 
   public AdImage() {
   }
 
-  public AdImage(long id, String path, Ad ad) {
-    this.id = id;
-    this.path = path;
-    this.ad = ad;
-  }
 
   public long getId() {
     return id;
@@ -41,11 +35,4 @@ public class AdImage {
     this.path = path;
   }
 
-  public Ad getAd() {
-    return ad;
-  }
-
-  public void setAd(Ad ad) {
-    this.ad = ad;
-  }
 }

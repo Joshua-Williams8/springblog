@@ -18,7 +18,48 @@ public class Ad {
 //  All of our columns in here are going to transfer into the database.
   @Column(nullable = false)
   private String description;
+//  Below sets 1 adImage to 1 ad?
+  @OneToOne
+  private AdImage adImage;
 
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public Ad(long id, String title, String description, AdImage adImage, User user) {
+    this.id = id;
+    this.title = title;
+    this.description = description;
+    this.adImage = adImage;
+    this.user = user;
+  }
+
+  // Establishes that there's going to be multiple ads tied back to One user.
+  // Join column binds the relationship together?
+  @ManyToOne
+  @JoinColumn(name="user_id")
+  private User user;
+
+
+  public Ad(long id, String title, String description, AdImage adImage) {
+    this.id = id;
+    this.title = title;
+    this.description = description;
+    this.adImage = adImage;
+  }
+
+  public AdImage getAdImage() {
+    return adImage;
+  }
+
+  public void setAdImage(AdImage adImage) {
+    this.adImage = adImage;
+  }
 
   public Ad(long id, String title, String description) {
     this.id = id;
