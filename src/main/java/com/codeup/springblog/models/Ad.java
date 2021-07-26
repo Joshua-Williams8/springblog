@@ -1,6 +1,7 @@
 package com.codeup.springblog.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 //We can also direct this to write to our database.
 @Entity
@@ -45,6 +46,33 @@ public class Ad {
   @JoinColumn(name="user_id")
   private User user;
 
+//  We are able to point back at all the categories for our ad, and list them.
+
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(
+    name = "ads_categories",
+    joinColumns = {@JoinColumn(name ="ad_id")},
+    inverseJoinColumns = {@JoinColumn(name="category_id")}
+  )
+  private List<Category> categories;
+
+
+  public List<Category> getCategories() {
+    return categories;
+  }
+
+  public void setCategories(List<Category> categories) {
+    this.categories = categories;
+  }
+
+  public Ad(long id, String title, String description, AdImage adImage, User user, List<Category> categories) {
+    this.id = id;
+    this.title = title;
+    this.description = description;
+    this.adImage = adImage;
+    this.user = user;
+    this.categories = categories;
+  }
 
   public Ad(long id, String title, String description, AdImage adImage) {
     this.id = id;

@@ -14,7 +14,12 @@
   <li>
 <!--    Hi-->
 <a th:href="@{|ads/${ad.getId()}|}"><span th:text="${ad.getTitle()}"></span></a>
+<!-- Without have to create a method, this should show the username of the user whos id is associated with this ad.-->
     <p th:text="${ad.user.username}"></p>
+<!--    Below displays all the categories-->
+    <div th:each="cat : ${ad.categories}">
+      <span th:text="${cat.name}"></span>
+    </div>
   </li>
 </ul>
 
