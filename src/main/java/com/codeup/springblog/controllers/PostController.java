@@ -2,6 +2,8 @@ package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.PostRepository;
+import com.codeup.springblog.models.User;
+import com.codeup.springblog.models.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PostController {
   private final PostRepository postDao;
+  private UserRepository userDao;
 
-  public PostController(PostRepository postDao) {
+  public PostController(PostRepository postDao, UserRepository userDao) {
     this.postDao = postDao;
+    this.userDao = userDao;
   }
 
 //  public List<Post> postsList = new ArrayList<Post>(){{
@@ -99,16 +103,34 @@ public class PostController {
 //    return "redirect:/posts"
   }
 
-//  @PostMapping("/posts/create")
-//  public String postCreateGet(@RequestParam(name="")) {
-//    return "posts/edit";
-//  }
-//
-//  @RequestMapping(path = "/posts/create", method = RequestMethod.POST)
-//  @ResponseBody
-//  public String postCreatePost() {
-//    return "This is POSTING or creating the post? Form sent here?";
-//  }
+  @GetMapping("/posts/create")
+  public String postCreateGet() {
+    return "posts/new";
+  }
+
+  @PostMapping("/posts/create/test")
+  public String postCreatePostTest(@RequestParam(name = "userId") long userId,Model model) {
+    User creatorTest = userDao.getById(1L);
+    String testTitle = "New post Title";
+    String testBody = "Body body bdoy body bdoy dbdyoyoby";
+    Post newPost = new Post(testTitle,testBody, creatorTest);
+    postDao.save(newPost);
+    return "posts/index";
+  }
+
+  @RequestMapping(path = "/posts/create/submit", method = RequestMethod.POST)
+  @ResponseBody
+  public String postCreatePost(
+    @RequestParam(name = "userId") long userId,
+    @RequestParam(name = "postTitle") String postTitle,
+    @RequestParam(name = "postBody") String postBody,
+    Model model) {
+    User creatorTest = userDao.getById(1L);
+    User creator = userDao.getById(userId);
+    Post newPost = new Post(postTitle,postBody, creatorTest);
+    postDao.save(newPost);
+    return "posts/index";
+  }
 
 
 }

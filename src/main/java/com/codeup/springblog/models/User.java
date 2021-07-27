@@ -10,6 +10,8 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+
+
 //  This ID is going to be the MAIN identifier, that is in this class.
 //  Database understands it will be auto incremented inside of mysql.
 
@@ -29,6 +31,34 @@ public class User {
   private List<Ad> ads;
 //  Above is now a reference to all the post the user should have associated with it?
 //  We established that the user wants to be associated with the ads.
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+  private List<Post> post;
+
+  public List<Post> getPost() {
+    return post;
+  }
+
+  public User(long id, String username, String email, String password, List<Ad> ads, List<Post> post) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.ads = ads;
+    this.post = post;
+  }
+
+  public void setPost(List<Post> post) {
+    this.post = post;
+  }
+
+  public User(long id, String username, String email, String password, List<Post> post) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.post = post;
+  }
 
   public List<Ad> getAds() {
     return ads;

@@ -12,12 +12,23 @@
 <!--Top-->
 <div th:if="${post}">
   <h2 th:text="${post.title}">title</h2>
+  <h4>Contact the Writer:
+    <span th:text="${post.user.email}"></span>
+  </h4>
   <p th:text="${post.body}">body</p>
 </div>
 <!--th:action="@{/posts/edit/{id}(id = ${post.id})}" method="post"-->
 <form method="post" action="/posts/edit">
   <input hidden name="postId" th:value="${post.id}" id="postId">
-  <button type="submit" >View Edit Page</button>
+  <button type="submit">View Edit Page</button>
+</form>
+
+<form th:method="post" action="posts/create/test">
+<!--  <input hidden name="userId" th:value="1" id="userId">-->
+<!--  <input hidden name="postTitle" th:value="New post Title" id="postTitle">-->
+<!--  <input hidden name="postBody" th:value="Body body bdoy body bdoy dbdyoyoby" id="postBody">-->
+
+  <button type="submit">Create test Post</button>
 </form>
 
 <!--Bottom-->
