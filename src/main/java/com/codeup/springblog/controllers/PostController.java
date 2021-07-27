@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PostController {
   private final PostRepository postDao;
-  private UserRepository userDao;
+  private final UserRepository userDao;
 
   public PostController(PostRepository postDao, UserRepository userDao) {
     this.postDao = postDao;
@@ -55,40 +55,35 @@ public class PostController {
 //    model.addAttribute("cohort", "Welcome to " + cohort + "!");
 //    return "join";
 //  }
-
-  @PostMapping("/posts/edit")
-//  @PostMapping("/posts/edit/{id}")
-//    public String postEditGet(@PathVariable long postId, Model model) {
-  public String postEditGet(@RequestParam(name = "postId") long postId, Model model) {
-//    long postIdLong = Long.parseLong(postId);
-    Post post = postDao.getById(postId);
-//    System.out.println(post.getTitle());
-//    System.out.println(postModel.getTitle());
-//    Post postEdit1 = post;
-//    Post postEdit2 = postModel;
-    model.addAttribute("postEdit", post);
+//The parameter needs to be the same name on the variable!
+  @GetMapping("/posts/{id}/edit")
+  public String postEditGet(@PathVariable long id, Model model) {
+model.addAttribute("post", postDao.findById(id));
     return "posts/edit";
   }
 
-  @PostMapping("/posts/edit/submit")
-  public String postEditSubmit(@RequestParam(name = "postId") String postId, @RequestParam(name = "newTitle") String newTitle, @RequestParam(name = "newBody") String newBody, Model model) {
-    long postIdLong = Long.parseLong(postId);
-    Post post = new Post(postIdLong, newTitle, newBody);
+//  @PostMapping("/posts/{id}/edit")
+//  public String postEditPost(@PathVariable long id, @RequestParam(name = "newTitle") String newTitle, @RequestParam(name = "newBody") String newBody, Model model) {
+//    Post post = postDao.findById(id);
+//    post.setTitle(newTitle);
+//    post.setBody(newBody);
+//    postDao.save(post);
+//    model.addAttribute("post",post);
+//    return "posts/edit";
+//  }
+
+  @PostMapping("/posts/{id}/edit")
+  public String postEditPost(@PathVariable long id,@ModelAttribute Post post) {
+    post.setUser(userDao.findById(1L));
     postDao.save(post);
-//    System.out.println(post.getTitle());
-//    System.out.println(postModel.getTitle());
-//    Post postEdit1 = post;
-//    Post postEdit2 = postModel;
-    Post updatedPost = postDao.findById(postIdLong);
-    model.addAttribute("postEdit", updatedPost);
-    return "posts/edit";
+    return "redirect:/posts/" + id;
   }
 
   @PostMapping("/posts/delete")
 //    @PostMapping("/posts/delete/{id}")
   public String postEditDelete(@RequestParam(name = "postId") String postId, Model model) {
     long postIdLong = Long.parseLong(postId);
-     postDao.deleteById(postIdLong);
+    postDao.deleteById(postIdLong);
 
 //     You can also do below
 //    Post post = postDao.getById(postIdLong);
@@ -104,32 +99,18 @@ public class PostController {
   }
 
   @GetMapping("/posts/create")
-  public String postCreateGet() {
-    return "posts/new";
+  public String postCreateGet(Model model) {
+    model.addAttribute("post", new Post());
+    return "posts/create";
   }
 
-  @PostMapping("/posts/create/test")
-  public String postCreatePostTest(@RequestParam(name = "userId") long userId,Model model) {
-    User creatorTest = userDao.getById(1L);
-    String testTitle = "New post Title";
-    String testBody = "Body body bdoy body bdoy dbdyoyoby";
-    Post newPost = new Post(testTitle,testBody, creatorTest);
-    postDao.save(newPost);
-    return "posts/index";
-  }
 
-  @RequestMapping(path = "/posts/create/submit", method = RequestMethod.POST)
-  @ResponseBody
-  public String postCreatePost(
-    @RequestParam(name = "userId") long userId,
-    @RequestParam(name = "postTitle") String postTitle,
-    @RequestParam(name = "postBody") String postBody,
-    Model model) {
-    User creatorTest = userDao.getById(1L);
-    User creator = userDao.getById(userId);
-    Post newPost = new Post(postTitle,postBody, creatorTest);
-    postDao.save(newPost);
-    return "posts/index";
+
+  @PostMapping("/posts/create")
+  public String postCreatePost(@ModelAttribute Post post){
+    post.setUser(userDao.findById(1L));
+    postDao.save(post);
+    return "redirect:/posts";
   }
 
 

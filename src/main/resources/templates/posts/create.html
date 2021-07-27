@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Post</title>
+  <th:block th:include="partials/styles.html  :: styles"></th:block>
+
+</head>
+<body>
+<th:block th:include="partials/navbar.html :: navbar"></th:block>
+<!--Top-->
+<!--Doing both just in case?-->
+<!--We can stick an ID in the action if we use the th: rather than regular?-->
+<!-- TODO: DON'T FIND FORWARD SLASH IN FRONT!-->
+  <form action="/posts/create" th:action="@{/posts/create}" method="post" th:object="${post}">
+    Title:
+<!--   @{} is usually for links?  -->
+<!--    Instead of name we use th field cause were making an post object-->
+<!--    We put what the post property with the field to set it.-->
+<!--    Dollar is what we use for our EXPRESSION LANGUAGE, for regular stuff?-->
+    <input th:field="*{title}" />
+<!--  vs the *{} which is used to refer to the object we are building  -->
+    <br />
+    Body:
+    <textarea th:field="*{body}" />
+    <br />
+    <input type="submit" />
+  </form>
+
+<!--Bottom-->
+<th:block th:include="partials/scripts.html  :: bootstrap"></th:block>
+</body>
+</html>
+

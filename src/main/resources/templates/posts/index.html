@@ -13,7 +13,7 @@
 <ul th:each="post : ${postsList}">
   <li>
 <!--    Hi-->
-<a th:href="@{|posts/${post.getId()}|}"><span th:text="${post.getTitle()}"></span></a>
+<a th:href="@{|/posts/${post.getId()}|}"><span th:text="${post.getTitle()}"></span></a>
   </li>
 </ul>
 
