@@ -1,5 +1,6 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,13 @@ public class HelloContoller {
 //Mapping is like the url thing from servlets?
 //  a get mapping requires a response body.
 //  This is like our doGet for our controller.
+
+  private final EmailService emailSvc;
+
+  public HelloContoller(EmailService emailSvc){
+    this.emailSvc = emailSvc;
+  }
+
   @GetMapping("/hello")
   @ResponseBody
   public String hello(){
@@ -31,7 +39,9 @@ public String getJoinForm(){
 @PostMapping("/join")
 //Similar to request.getparameter from jsps.
 public  String joinCohort(@RequestParam(name = "cohort") String cohort, Model model){
+
     model.addAttribute("cohort", "Welcome to " + cohort);
+    emailSvc.prepareAndSend("jnwilliams8254@gmail.com", "Testing email "+ cohort, "Thanks for working properly...");
     return "join";
 }
 
