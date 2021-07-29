@@ -1,4 +1,4 @@
-package com.codeup.springblog.controllers;
+package com.codeup.springblog.TestingAPIs;
 
 import java.net.URLEncoder;
 import com.mashape.unirest.http.HttpResponse;

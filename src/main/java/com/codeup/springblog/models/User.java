@@ -70,6 +70,15 @@ public class User {
 
   public User() {
   }
+//  Create a new object by copying just the values, not the actual object refernece
+  public User(User copy){
+    id = copy.id;
+    email = copy.email;
+    username = copy.username;
+    password = copy.password;
+    ads = copy.ads;
+    post = copy.post;
+  }
 
   public User(long id, String username, String email, String password) {
     this.id = id;
