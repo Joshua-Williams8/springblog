@@ -3,10 +3,15 @@ package com.codeup.springblog.controllers;
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.Repositories.PostRepository;
 import com.codeup.springblog.Repositories.UserRepository;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.exceptions.TemplateInputException;
+
+import javax.persistence.EntityNotFoundException;
 
 
 @Controller
@@ -48,9 +53,21 @@ public class PostController {
   public String postByID(@PathVariable long id, Model model) {
 //    int minusOne = (int) id - 1;
 //    Post post = postsList.get(minusOne);
-    Post post = postDao.findById(id);
-    model.addAttribute("post", post);
-    return "posts/show";
+    try {
+      Post post = postDao.findById(id);
+      boolean isPostOwner = false;
+
+      if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        isPostOwner = currentUser.getId() == post.getUser().getId();
+      }
+      model.addAttribute("isPostOwner", isPostOwner);
+      model.addAttribute("post", post);
+      return "posts/show";
+    } catch (Exception e){
+      e.printStackTrace();
+      return "redirect:posts/";
+    }
   }
 
 //  @PostMapping("/join")
@@ -61,8 +78,19 @@ public class PostController {
 //The parameter needs to be the same name on the variable!
   @GetMapping("/posts/{id}/edit")
   public String postEditGet(@PathVariable long id, Model model) {
-model.addAttribute("post", postDao.findById(id));
-    return "posts/edit";
+    if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
+      return "redirect:/posts/" + id;
+    }
+    User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Post post = postDao.findById(id);
+//    We grab the current user, with the secturity context holder, and test to see if the IDs match because showing the edit page.
+    if(currentUser.getId() == post.getUser().getId()) {
+      model.addAttribute("post", post);
+      return "posts/edit";
+    } else {
+      return "redirect:/posts/" + id;
+    }
+
   }
 
 //  @PostMapping("/posts/{id}/edit")
@@ -77,7 +105,8 @@ model.addAttribute("post", postDao.findById(id));
 
   @PostMapping("/posts/{id}/edit")
   public String postEditPost(@PathVariable long id,@ModelAttribute Post post) {
-    post.setUser(userDao.findById(1L));
+    User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    post.setUser(userDao.findById(currentUser.getId()));
     postDao.save(post);
     return "redirect:/posts/" + id;
   }
@@ -103,6 +132,13 @@ model.addAttribute("post", postDao.findById(id));
 
   @GetMapping("/posts/create")
   public String postCreateGet(Model model) {
+    if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
+      return "redirect:/posts";
+    }
+    User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+//    We grab the current user, with the secturity context holder, and test to see if the IDs match because showing the edit page.
+
     model.addAttribute("post", new Post());
     return "posts/create";
   }
@@ -111,7 +147,9 @@ model.addAttribute("post", postDao.findById(id));
 
   @PostMapping("/posts/create")
   public String postCreatePost(@ModelAttribute Post post){
-    post.setUser(userDao.findById(1L));
+
+    User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    post.setUser(userDao.findById(currentUser.getId()));
     postDao.save(post);
 //    \n does create a new line in the email!
     emailSvc.prepareAndSend(post.getUser().getEmail(), "New post Created!", "Post title: " + post.getTitle() + "\nPost body: " + post.getBody());

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -10,6 +10,7 @@
 <body>
 <th:block th:include="partials/navbar.html :: navbar"></th:block>
 <!--Top-->
+<!--<h1 >User ID: <span th:text="${#authentication.principal.id}"/></h1>-->
 <ul th:each="post : ${postsList}">
   <li>
 <!--    Hi-->
@@ -18,6 +19,6 @@
 </ul>
 
 <!--Bottom-->
-<!--<th:block th:include="partials/scripts.html  :: bootstrap"></th:block>-->
+<th:block th:include="partials/scripts.html  :: bootstrap"></th:block>
 </body>
 </html>
