@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Edit Post</title>
@@ -12,21 +12,38 @@
 <!--Doing both just in case?-->
 <!--We can stick an ID in the action if we use the th: rather than regular?-->
 <!-- TODO: DON'T FIND FORWARD SLASH IN FRONT!-->
-  <form action="/posts/create" th:action="@{/posts/create}" method="post" th:object="${post}">
-    Title:
-<!--   @{} is usually for links?  -->
-<!--    Instead of name we use th field cause were making an post object-->
-<!--    We put what the post property with the field to set it.-->
-<!--    Dollar is what we use for our EXPRESSION LANGUAGE, for regular stuff?-->
-    <input th:field="*{title}" />
-<!--  vs the *{} which is used to refer to the object we are building  -->
-    <br />
-    Body:
-    <textarea th:field="*{body}" />
-    <br />
-    <input type="submit" />
-  </form>
+<!--<form action="/posts/create" th:action="@{/posts/create}" method="post" th:object="${post}">-->
+<!--  Title:-->
+<!--  &lt;!&ndash;   @{} is usually for links?  &ndash;&gt;-->
+<!--  &lt;!&ndash;    Instead of name we use th field cause were making an post object&ndash;&gt;-->
+<!--  &lt;!&ndash;    We put what the post property with the field to set it.&ndash;&gt;-->
+<!--  &lt;!&ndash;    Dollar is what we use for our EXPRESSION LANGUAGE, for regular stuff?&ndash;&gt;-->
+<!--  <input th:field="*{title}"/>-->
+<!--  &lt;!&ndash;  vs the *{} which is used to refer to the object we are building  &ndash;&gt;-->
+<!--  <br/>-->
+<!--  Body:-->
+<!--  <textarea th:field="*{body}"/>-->
+<!--  <br/>-->
+<!--  <input type="submit"/>-->
+<!--</form>-->
 
+<form action="/posts/create" th:action="@{/posts/create}" method="post" th:object="${post}">
+  <div class="card text-center my-3 mx-auto index-card">
+    <!--    <div class="card-header">-->
+    <!--      Featured-->
+    <!--    </div>-->
+    <div class="card-body">
+      <label for="title">Title</label>
+      <input th:field="*{title}" id="title" name="title" class="card-title">
+      <label for="body">Body</label>
+      <input th:field="*{body}" id="body" name="body" class="card-text show-p">
+      <button type="submit" class="btn btn-primary">Create Post</button>
+    </div>
+    <div class="card-footer text-muted">
+      Posted by: <span th:text="${user.username}">I wanna put a th:text user</span>
+    </div>
+  </div>
+</form>
 <!--Bottom-->
 <th:block th:include="partials/scripts.html  :: bootstrap"></th:block>
 </body>

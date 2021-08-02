@@ -149,7 +149,7 @@ public class PostController {
     User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 //    We grab the current user, with the security context holder, and test to see if the IDs match because showing the edit page.
-
+    model.addAttribute("user",currentUser);
     model.addAttribute("post", new Post());
     return "posts/create";
   }
