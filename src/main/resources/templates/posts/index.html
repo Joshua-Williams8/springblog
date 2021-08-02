@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -11,12 +11,33 @@
 <th:block th:include="partials/navbar.html :: navbar"></th:block>
 <!--Top-->
 <!--<h1 >User ID: <span th:text="${#authentication.principal.id}"/></h1>-->
-<ul th:each="post : ${postsList}">
-  <li>
-<!--    Hi-->
-<a th:href="@{|/posts/${post.getId()}|}"><span th:text="${post.getTitle()}"></span></a>
-  </li>
-</ul>
+<div class="container mx-auto">
+<!--  <div th:each="post : ${postsList}">-->
+
+    <div th:each="post : ${postsList}" class="card text-center my-3 mx-auto index-card">
+      <!--    <div class="card-header">-->
+      <!--      Featured-->
+      <!--    </div>-->
+      <div class="card-body">
+        <h5 class="card-title" th:text="${post.title}">Post title</h5>
+        <p class="card-text index-p" th:text="${post.body}">Body</p>
+        <a th:href="@{|/posts/${post.getId()}|}" class="btn btn-primary">View post</a>
+      </div>
+      <div class="card-footer text-muted">
+        Posted by: <span th:text="${post.user.username}"></span>
+      </div>
+    </div>
+
+  </div>
+<!--</div>-->
+
+<!--<ul th:each="post : ${postsList}">-->
+<!--  <li>-->
+
+<!--    &lt;!&ndash;    Hi&ndash;&gt;-->
+<!--    <a th:href="@{|/posts/${post.getId()}|}"><span th:text="${post.getTitle()}"></span></a>-->
+<!--  </li>-->
+<!--</ul>-->
 
 <!--Bottom-->
 <th:block th:include="partials/scripts.html  :: bootstrap"></th:block>

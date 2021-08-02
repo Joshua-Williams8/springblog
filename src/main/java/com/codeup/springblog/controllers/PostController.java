@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.exceptions.TemplateInputException;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 
 @Controller
@@ -36,6 +37,16 @@ public class PostController {
   @GetMapping("/posts")
   public String showPosts(Model model) {
     model.addAttribute("postsList", postDao.findAll());
+
+//    model.addAttribute("postsList", postsList);
+    return "posts/index";
+  }
+
+  @PostMapping("/posts/search")
+  public String showPostsSearch(@RequestParam(name = "searchTitle") String title, Model model) {
+    System.out.println(title);
+    model.addAttribute("singlePost", postDao.findFirstByTitle(title));
+    model.addAttribute("postsList", postDao.findAllByTitle(title));
 
 //    model.addAttribute("postsList", postsList);
     return "posts/index";
@@ -137,7 +148,7 @@ public class PostController {
     }
     User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-//    We grab the current user, with the secturity context holder, and test to see if the IDs match because showing the edit page.
+//    We grab the current user, with the security context holder, and test to see if the IDs match because showing the edit page.
 
     model.addAttribute("post", new Post());
     return "posts/create";

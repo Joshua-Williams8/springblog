@@ -10,21 +10,37 @@
 <body>
 <th:block th:include="partials/navbar.html :: navbar"></th:block>
 <!-- Top -->
-<!-- insurance agent part time? -->
-<div th:if="${post}">
-  <h2 th:text="${post.title}">title</h2>
-  <h4>Contact the Writer:
-    <span th:text="${post.user.email}"></span>
-  </h4>
-  <p th:text="${post.body}">body</p>
-</div>
-<!--th:action="@{/posts/edit/{id}(id = ${post.id})}" method="post"-->
-<div sec:authorize="isAuthenticated()">
 
-<div th:if="${isPostOwner}">
-  <a th:href="@{|/posts/${post.getId()}/edit|}">Edit post anchor</a>
+<div th:if="${post}" class="card text-center my-3 mx-auto index-card">
+  <!--    <div class="card-header">-->
+  <!--      Featured-->
+  <!--    </div>-->
+  <div class="card-body">
+    <h5 class="card-title" th:text="${post.title}">Post title</h5>
+    <p class="card-text show-p" th:text="${post.body}">Body</p>
+    <div th:if="${isPostOwner}">
+      <a th:href="@{|/posts/${post.getId()}/edit|}" class="btn btn-primary">Edit Post</a>
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    Posted by: <span th:text="${post.user.username}"></span>
+  </div>
 </div>
-</div>
+
+<!--<div th:if="${post}">-->
+<!--  <h2 th:text="${post.title}">title</h2>-->
+<!--  <h4>Contact the Writer:-->
+<!--    <span th:text="${post.user.email}"></span>-->
+<!--  </h4>-->
+<!--  <p th:text="${post.body}">body</p>-->
+<!--</div>-->
+<!--th:action="@{/posts/edit/{id}(id = ${post.id})}" method="post"-->
+<!--<div sec:authorize="isAuthenticated()">-->
+
+<!--  <div th:if="${isPostOwner}">-->
+<!--    <a th:href="@{|/posts/${post.getId()}/edit|}">Edit post anchor</a>-->
+<!--  </div>-->
+<!--</div>-->
 
 
 <!--Bottom-->

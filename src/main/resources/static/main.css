@@ -1,3 +1,11 @@
 body{
   background-color: #989b98;
 }
+
+.index-p{
+  overflow:hidden; height:1.5rem; text-overflow: ellipsis
+}
+.index-card{
+  width: 70%;
+
+}
