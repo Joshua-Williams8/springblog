@@ -26,7 +26,7 @@
 <!--  <br/>-->
 <!--  <input type="submit"/>-->
 <!--</form>-->
-<form action="/posts/create" th:action="@{/posts/create}" method="post" th:object="${post}">
+<form action="/posts/create" th:action="@{|/posts/${post.getId()}/edit|}" method="post" th:object="${post}">
   <div class="card text-center my-3 mx-auto index-card">
     <!--    <div class="card-header">-->
     <!--      Featured-->
@@ -36,17 +36,19 @@
       <input th:field="*{title}" id="title" name="title" class="card-title">
       <label for="body">Body</label>
       <input th:field="*{body}" id="body" name="body" class="card-text show-p">
-      <button type="submit" class="btn btn-primary">Create Post</button>
+      <button type="submit" class="btn btn-primary">Save changes to Post</button>
     </div>
     <div class="card-footer text-muted">
       Posted by: <span th:text="${post.user.username}">I wanna put a th:text user</span>
     </div>
   </div>
 </form>
-<form method="post" action="/posts/delete">
-  <input hidden name="postId" th:value="${post.id}" id="postId">
-  <button type="submit">Delete Post?</button>
+<form th:action="@{|/posts/${post.getId()}/delete|}" method="post">
+  <input hidden name="id" id="id" th:value="${post.getId}">
+  <button type="submit" class="btn btn-primary">Remove Post</button>
 </form>
+<!--<a th:href="@{|/posts/${post.getId()}/delete|}" class="btn btn-primary">Remove Post</a>-->
+
 <!--</div>-->
 
 <!--Bottom-->

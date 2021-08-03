@@ -1,18 +1,25 @@
 package com.codeup.springblog.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="posts")
+@Table(name = "posts")
 public class Post {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   @Column(nullable = false, length = 155)
+//  @NotBlank(message = "Post need a title!")
+//  @Size(min = 3, message = "A title must be at least 3 characters!")
   private String title;
 
+
   @Column(nullable = false)
+//  @NotBlank(message = "Post need a body!")
+//  @Size(max = 255, message = "The max size is 255 characters!")
   private String body;
 
   // Establishes that there's going to be multiple ads tied back to One user.

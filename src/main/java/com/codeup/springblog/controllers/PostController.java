@@ -1,18 +1,14 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
-import com.codeup.springblog.Repositories.PostRepository;
-import com.codeup.springblog.Repositories.UserRepository;
+import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.services.EmailService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.exceptions.TemplateInputException;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 
 @Controller
@@ -75,18 +71,13 @@ public class PostController {
       model.addAttribute("isPostOwner", isPostOwner);
       model.addAttribute("post", post);
       return "posts/show";
-    } catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       return "redirect:posts/";
     }
   }
 
-//  @PostMapping("/join")
-//  public String joinCohort(@RequestParam(name = "cohort") String cohort, Model model) {
-//    model.addAttribute("cohort", "Welcome to " + cohort + "!");
-//    return "join";
-//  }
-//The parameter needs to be the same name on the variable!
+  //The parameter needs to be the same name on the variable!
   @GetMapping("/posts/{id}/edit")
   public String postEditGet(@PathVariable long id, Model model) {
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
@@ -95,7 +86,7 @@ public class PostController {
     User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     Post post = postDao.findById(id);
 //    We grab the current user, with the secturity context holder, and test to see if the IDs match because showing the edit page.
-    if(currentUser.getId() == post.getUser().getId()) {
+    if (currentUser.getId() == post.getUser().getId()) {
       model.addAttribute("post", post);
       return "posts/edit";
     } else {
@@ -115,18 +106,37 @@ public class PostController {
 //  }
 
   @PostMapping("/posts/{id}/edit")
-  public String postEditPost(@PathVariable long id,@ModelAttribute Post post) {
+  public String postEditPost(@PathVariable long id, @ModelAttribute Post post) {
     User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     post.setUser(userDao.findById(currentUser.getId()));
     postDao.save(post);
     return "redirect:/posts/" + id;
   }
 
-  @PostMapping("/posts/delete")
+//  @PostMapping("/posts/delete")
+////    @PostMapping("/posts/delete/{id}")
+//  public String postEditDelete(@RequestParam(name = "postId") String postId, Model model) {
+//    long postIdLong = Long.parseLong(postId);
+//    postDao.deleteById(postIdLong);
+//
+////     You can also do below
+////    Post post = postDao.getById(postIdLong);
+////    postDao.delete(post);
+////    System.out.println(post.getTitle());
+////    System.out.println(postModel.getTitle());
+////    Post postEdit1 = post;
+////    Post postEdit2 = postModel;
+////    model.addAttribute("postEdit", post);
+//    model.addAttribute("postsList", postDao.findAll());
+//    return "posts/index";
+////    return "redirect:/posts"
+//  }
+
+  @PostMapping("/posts/{id}/delete")
 //    @PostMapping("/posts/delete/{id}")
-  public String postEditDelete(@RequestParam(name = "postId") String postId, Model model) {
-    long postIdLong = Long.parseLong(postId);
-    postDao.deleteById(postIdLong);
+  public String postDelete(@RequestParam(name = "id") long id, Model model) {
+//    long postIdLong = Long.parseLong(id);
+    postDao.deleteById(id);
 
 //     You can also do below
 //    Post post = postDao.getById(postIdLong);
@@ -137,8 +147,8 @@ public class PostController {
 //    Post postEdit2 = postModel;
 //    model.addAttribute("postEdit", post);
     model.addAttribute("postsList", postDao.findAll());
-    return "posts/index";
-//    return "redirect:/posts"
+//    return "posts/index";
+    return "redirect:/posts";
   }
 
   @GetMapping("/posts/create")
@@ -149,23 +159,41 @@ public class PostController {
     User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 //    We grab the current user, with the security context holder, and test to see if the IDs match because showing the edit page.
-    model.addAttribute("user",currentUser);
+    model.addAttribute("user", currentUser);
     model.addAttribute("post", new Post());
     return "posts/create";
   }
 
 
-
-  @PostMapping("/posts/create")
+    @PostMapping("/posts/create")
   public String postCreatePost(@ModelAttribute Post post){
 
     User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     post.setUser(userDao.findById(currentUser.getId()));
     postDao.save(post);
 //    \n does create a new line in the email!
-    emailSvc.prepareAndSend(post.getUser().getEmail(), "New post Created!", "Post title: " + post.getTitle() + "\nPost body: " + post.getBody());
+//    emailSvc.prepareAndSend(post.getUser().getEmail(), "New post Created!", "Post title: " + post.getTitle() + "\nPost body: " + post.getBody());
     return "redirect:/posts";
   }
+//  Tryin to implement error validation... it didn't work...
+//  @PostMapping("/posts/create")
+//  public String postCreatePost(@Valid Post post,
+//                               Errors validation,
+//                               Model model) {
+//    User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    post.setUser(userDao.findById(currentUser.getId()));
+//
+//    if (validation.hasErrors()) {
+//      model.addAttribute("errors", validation);
+//      model.addAttribute("post", post);
+//      return "posts/create";
+//    }
+
+//    postDao.save(post);
+////    \n does create a new line in the email!
+////    emailSvc.prepareAndSend(post.getUser().getEmail(), "New post Created!", "Post title: " + post.getTitle() + "\nPost body: " + post.getBody());
+//    return "redirect:/posts";
+//  }
 
 
 }

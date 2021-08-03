@@ -1,6 +1,6 @@
 package com.codeup.springblog.services;
 
-import com.codeup.springblog.Repositories.UserRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.models.UserWithRoles;
 import org.springframework.security.core.userdetails.UserDetails;
