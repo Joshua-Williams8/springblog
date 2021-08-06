@@ -13,6 +13,8 @@
 <div th:if="${ad}">
   <h2 th:text="${ad.title}">title</h2>
   <p th:text="${ad.description}">description</p>
+  <p th:text="${ad.date}">description</p>
+
 </div>
 <h3>Upload image?</h3>
 <form action="/fileupload" method="POST" enctype="multipart/form-data">

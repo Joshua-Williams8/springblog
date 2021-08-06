@@ -1,6 +1,9 @@
 package com.codeup.springblog.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 //We can also direct this to write to our database.
@@ -32,12 +35,23 @@ public class Ad {
     this.user = user;
   }
 
-  public Ad(long id, String title, String description, AdImage adImage, User user) {
+  public Ad(long id, String title, String description, User user) {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.adImage = adImage;
     this.user = user;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  public void setDate(int year, int month, int day){
+
   }
 
   // Establishes that there's going to be multiple ads tied back to One user.
@@ -56,6 +70,19 @@ public class Ad {
   )
   private List<Category> categories;
 
+
+  @Column
+  @Temporal(TemporalType.DATE)
+  @JsonFormat(pattern="yyyy-MM-dd")
+  private Date date;
+
+  public Ad(long id, String title, String description, AdImage adImage, Date date) {
+    this.id = id;
+    this.title = title;
+    this.description = description;
+    this.adImage = adImage;
+    this.date = date;
+  }
 
   public List<Category> getCategories() {
     return categories;
