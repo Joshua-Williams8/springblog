@@ -3,6 +3,7 @@ package com.codeup.springblog.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -75,6 +76,9 @@ public class Ad {
   @Temporal(TemporalType.DATE)
   @JsonFormat(pattern="yyyy-MM-dd")
   private Date date;
+
+  @Column(name="startDateTime",columnDefinition="TIMESTAMP")
+  private LocalDateTime startDateTime;
 
   public Ad(long id, String title, String description, AdImage adImage, Date date) {
     this.id = id;

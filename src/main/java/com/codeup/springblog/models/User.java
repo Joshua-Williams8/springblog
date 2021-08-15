@@ -12,8 +12,6 @@ public class User {
   private long id;
 
 
-//  This ID is going to be the MAIN identifier, that is in this class.
-//  Database understands it will be auto incremented inside of mysql.
 
   //  Below sets up the parameters for our column
   @Column(nullable = false, length = 25)
