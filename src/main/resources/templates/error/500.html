@@ -3,10 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Error NOT FOUND</title>
+  <title>Error Backend</title>
   <th:block th:include="partials/styles.html  :: styles"></th:block>
 </head>
 <body>
+<!--Shows if there is a 500 error.-->
 <th:block th:include="partials/navbar.html :: navbar"></th:block>
 <th:block th:switch="${error}">
   <div th:case="'Not Found'">
