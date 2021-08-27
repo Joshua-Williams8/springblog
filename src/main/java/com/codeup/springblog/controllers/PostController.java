@@ -48,14 +48,6 @@ public class PostController {
     return "posts/index";
   }
 
-//  @PostMapping("/posts")
-//  public String showPostsPost(Model model) {
-//    model.addAttribute("postsList", postDao.findAll());
-//
-////    model.addAttribute("postsList", postsList);
-//    return "posts/index";
-//  }
-
   @GetMapping("/posts/{id}")
   public String postByID(@PathVariable long id, Model model) {
 //    int minusOne = (int) id - 1;

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Error Backend</title>
+  <th:block th:replace="partials/style.html :: style"></th:block>
+</head>
+<body>
+<!--Shows if there is a 500 error.-->
+<nav th:replace="partials/navbar.html :: navbar"></nav>
+<th:block th:switch="${error}">
+  <div th:case="'Not Found'">
+    <h1>Page not found!!</h1>
+  </div>
+  <div th:case="'Forbidden'">
+    <h1>You don't have permission to view this page.</h1>
+  </div>
+</th:block>
+<p>Something broke with the internal code.</p>
+<p th:="${errorMsg}"></p>
+
+
+
+<th:block th:replace="partials/scripts.html :: scripts"></th:block>
+</body>
+</html>
