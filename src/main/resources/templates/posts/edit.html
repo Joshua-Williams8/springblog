@@ -28,9 +28,6 @@
 <!--</form>-->
 <form action="/posts/create" th:action="@{|/posts/${post.getId()}/edit|}" method="post" th:object="${post}">
   <div class="card text-center my-3 mx-auto index-card">
-    <!--    <div class="card-header">-->
-    <!--      Featured-->
-    <!--    </div>-->
     <div class="card-body">
       <label for="title">Title</label>
       <input th:field="*{title}" id="title" name="title" class="card-title">
@@ -47,11 +44,6 @@
   <input hidden name="id" id="id" th:value="${post.getId}">
   <button type="submit" class="btn btn-primary">Remove Post</button>
 </form>
-<!--<a th:href="@{|/posts/${post.getId()}/delete|}" class="btn btn-primary">Remove Post</a>-->
-
-<!--</div>-->
-
-<!--Bottom-->
 <th:block th:include="partials/scripts.html  :: bootstrap"></th:block>
 </body>
 </html>
