@@ -1,4 +1,6 @@
 # TODO: Get a better understanding of how Spring Boot works, with hiberate, thymeleaf, th security, and other things.
+# NOTE: JUNIT https://java.codeup.com/java-ii/junit-tdd/#the-before-annotation
+# NOTE: Hibernate
 
 USE springblog_db;
 
