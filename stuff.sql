@@ -1,7 +1,8 @@
 # TODO: Get a better understanding of how Spring Boot works, with hiberate, thymeleaf, th security, and other things.
 # NOTE: JUNIT https://java.codeup.com/java-ii/junit-tdd/#the-before-annotation
 # NOTE: Hibernate
-
+# NOTE: Thymeleaf
+# NOTE: thymeleaf security
 USE springblog_db;
 
 INSERT INTO springblog_db.users(username, email, password)
