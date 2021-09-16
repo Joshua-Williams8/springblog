@@ -18,6 +18,10 @@ public class Comment {
   @Column(nullable = false, length = 200)
   private String body;
 
-  @ManyToMany
+  @ManyToOne
+  @JoinColumn(name = "commenter_id")
+  private User commenter;
+
+
 
 }
