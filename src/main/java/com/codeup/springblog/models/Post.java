@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -29,6 +30,9 @@ public class Post {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+  private List<Comment> comments;
 
   public Post(long id, String title, String body, User user) {
     this.id = id;

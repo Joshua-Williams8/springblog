@@ -33,9 +33,14 @@ public class User {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
   private List<Post> post;
 
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "commenter")
+  private List<Comment> comments;
+
   public List<Post> getPost() {
     return post;
   }
+
+
 
   public User(long id, String username, String email, String password, List<Ad> ads, List<Post> post) {
     this.id = id;

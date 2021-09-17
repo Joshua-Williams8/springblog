@@ -22,6 +22,13 @@ public class Comment {
   @JoinColumn(name = "commenter_id")
   private User commenter;
 
+  @ManyToOne
+  @JoinColumn(name = "post_id")
+  private Post post;
+
+
+
+
 
 
 }
