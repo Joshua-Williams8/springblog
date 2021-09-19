@@ -26,9 +26,39 @@ public class Comment {
   @JoinColumn(name = "post_id")
   private Post post;
 
+  public Comment(){
 
+  }
 
+  public long getId() {
+    return id;
+  }
 
+  public void setId(long id) {
+    this.id = id;
+  }
 
+  public String getBody() {
+    return body;
+  }
 
+  public void setBody(String body) {
+    this.body = body;
+  }
+
+  public User getCommenter() {
+    return commenter;
+  }
+
+  public void setCommenter(User commenter) {
+    this.commenter = commenter;
+  }
+
+  public Post getPost() {
+    return post;
+  }
+
+  public void setPost(Post post) {
+    this.post = post;
+  }
 }

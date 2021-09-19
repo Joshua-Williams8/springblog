@@ -34,6 +34,18 @@ public class Post {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
   private List<Comment> comments;
 
+  public List<Comment> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
+
+  public void addComment(Comment comment){
+    this.comments.add(comment);
+  }
+
   public Post(long id, String title, String body, User user) {
     this.id = id;
     this.title = title;

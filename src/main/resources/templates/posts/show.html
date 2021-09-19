@@ -24,6 +24,8 @@
   </div>
 </div>
 
+<div th:each="comment : ${post.comments}"></div>
+
 <!--Bottom-->
 <th:block th:include="partials/scripts.html  :: bootstrap"></th:block>
 </body>
