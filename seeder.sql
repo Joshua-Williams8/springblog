@@ -20,3 +20,10 @@ values ('I am a title', 'Max 255 characters.', 1),
 #        (1,2),
 #        (2,1),
 #        (2,3);
+
+# Comment seeder:
+
+INSERT INTO springblog_db.comments(body, commenter_id, post_id)
+VALUES ('Test comment from baba', 2, 2),
+       ('Admin Test comment', 2, 2);
+
