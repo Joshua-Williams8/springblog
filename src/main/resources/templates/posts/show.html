@@ -38,7 +38,8 @@
         <h5 class="modal-title" id="staticBackdropLabel">Please leave a comment!</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form>
+<!--      NOTE: We want to sent a redirect so that the link at the top changes? so you can refresh?-->
+      <form th:action="@{/comment}" th:method="post">
         <div class="modal-body">
           Comment text body?
         </div>
