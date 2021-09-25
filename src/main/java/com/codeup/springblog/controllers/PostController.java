@@ -1,5 +1,6 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.models.Comment;
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
@@ -166,6 +167,18 @@ public class PostController {
 //    \n does create a new line in the email!
 //    emailSvc.prepareAndSend(post.getUser().getEmail(), "New post Created!", "Post title: " + post.getTitle() + "\nPost body: " + post.getBody());
     return "redirect:/posts";
+  }
+
+  @PostMapping("posts/comment")
+  public String postCreateComment(@RequestParam long PostId, @RequestParam String body){
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    User currentUser = userDao.findById(user.getId());
+    Post currentPost = postDao.findById(PostId);
+    Comment newComment = new Comment();
+    newComment.setCommenter(currentUser);
+    newComment.setPost(currentPost);
+
+    return "redirect:/posts/" + PostId;
   }
 //  Tryin to implement error validation... it didn't work...
 //  @PostMapping("/posts/create")
