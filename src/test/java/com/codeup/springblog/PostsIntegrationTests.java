@@ -167,5 +167,8 @@ public class PostsIntegrationTests {
       .andExpect(status().is3xxRedirection());
   }
 
+// TODO: Make the test user make a comment!
+
+
 
 }
