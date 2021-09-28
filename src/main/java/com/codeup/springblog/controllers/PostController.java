@@ -2,6 +2,7 @@ package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Comment;
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.repositories.CommentRepository;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.models.User;
@@ -17,12 +18,14 @@ public class PostController {
   private final PostRepository postDao;
   private final UserRepository userDao;
   private final EmailService emailSvc;
+  private final CommentRepository commentDao;
 
 
-  public PostController(PostRepository postDao, UserRepository userDao, EmailService emailSvc) {
+  public PostController(PostRepository postDao, UserRepository userDao, EmailService emailSvc, CommentRepository commentDao) {
     this.postDao = postDao;
     this.userDao = userDao;
     this.emailSvc = emailSvc;
+    this.commentDao = commentDao;
   }
 
 //  public List<Post> postsList = new ArrayList<Post>(){{
